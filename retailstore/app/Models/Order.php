@@ -22,4 +22,18 @@ class Order extends Model
         'payment_method',
         'shipping_address',
     ];
+
+    protected $casts = [
+        'order_date' => 'datetime',
+    ];
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class, 'customer_id', 'customer_id');
+    }
+
+    public function orderDetails()
+    {
+        return $this->hasMany(OrderDetail::class, 'order_id', 'order_id');
+    }
 }

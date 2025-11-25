@@ -22,4 +22,19 @@ class Product extends Model
         'cost_price',
         'is_active',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'category_id');
+    }
+
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class, 'supplier_id', 'supplier_id');
+    }
+
+    public function inventory()
+    {
+        return $this->hasOne(Inventory::class, 'product_id', 'product_id');
+    }
 }
