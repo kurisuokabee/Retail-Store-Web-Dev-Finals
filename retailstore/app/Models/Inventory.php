@@ -20,4 +20,13 @@ class Inventory extends Model
         'max_stock_level',
         'last_restocked',
     ];
+
+    protected $casts = [
+        'last_restocked' => 'datetime',
+    ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
 }
