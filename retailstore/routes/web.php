@@ -1,11 +1,21 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
+
+use App\Http\Controllers\Admin\AdminProductController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\SupplierController;
+use App\Http\Controllers\Admin\InventoryController;
+use App\Http\Controllers\Admin\AdminOrderController;
+use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\DashboardController;
+
 
 Route::get('/', function (){
     return view('welcome');
@@ -40,3 +50,37 @@ Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('
 Route::post('/register', [AuthController::class, 'register'])->name('auth.register');
 
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('auth.logout');
+
+//Admin Routes
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('products', AdminProductController::class);
+}); 
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('categories', CategoryController::class);
+});
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('suppliers', SupplierController::class);
+});
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('inventory', InventoryController::class);
+});
+
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('orders', AdminOrderController::class);
+});
+
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('reports', [ReportController::class, 'index'])->name('reports.index');
+});
+
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
+

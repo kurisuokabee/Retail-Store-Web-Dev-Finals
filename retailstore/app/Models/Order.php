@@ -23,17 +23,13 @@ class Order extends Model
         'shipping_address',
     ];
 
-    protected $casts = [
-        'order_date' => 'datetime',
-    ];
-
-    public function customer()
-    {
-        return $this->belongsTo(Customer::class, 'customer_id', 'customer_id');
+    public function customer() {
+        return $this->belongsTo(Customer::class, 'customer_id');
     }
 
-    public function orderDetails()
-    {
-        return $this->hasMany(OrderDetail::class, 'order_id', 'order_id');
+    public function details() {
+        return $this->hasMany(OrderDetail::class, 'order_id');
     }
+
+    
 }
