@@ -22,4 +22,14 @@ class Order extends Model
         'payment_method',
         'shipping_address',
     ];
+
+    public function customer() {
+        return $this->belongsTo(Customer::class, 'customer_id');
+    }
+
+    public function details() {
+        return $this->hasMany(OrderDetail::class, 'order_id');
+    }
+
+    
 }
