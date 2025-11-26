@@ -95,32 +95,32 @@ class DatabaseSeeder extends Seeder
         // -------------------------------
         // Seed Orders and OrderDetails
         // -------------------------------
-        // $orders = Order::factory()->count(15)->create();
+        $orders = Order::factory()->count(15)->create();
 
-        // foreach ($orders as $order) {
-        //     // Create 1-5 order details per order
-        //     $totalAmount = 0;
+        foreach ($orders as $order) {
+            // Create 1-5 order details per order
+            $totalAmount = 0;
 
-        //     $numItems = rand(1, 5);
-        //     $products = Product::inRandomOrder()->take($numItems)->get();
+            $numItems = rand(1, 5);
+            $products = Product::inRandomOrder()->take($numItems)->get();
 
-        //     foreach ($products as $product) {
-        //         $quantity = rand(1, 5);
-        //         $subtotal = $product->unit_price * $quantity;
+            foreach ($products as $product) {
+                $quantity = rand(1, 5);
+                $subtotal = $product->unit_price * $quantity;
 
-        //         OrderDetail::factory()->create([
-        //             'order_id' => $order->order_id,
-        //             'product_id' => $product->product_id,
-        //             'quantity' => $quantity,
-        //             'unit_price' => $product->unit_price,
-        //             'subtotal' => $subtotal,
-        //         ]);
+                OrderDetail::factory()->create([
+                    'order_id' => $order->order_id,
+                    'product_id' => $product->product_id,
+                    'quantity' => $quantity,
+                    'unit_price' => $product->unit_price,
+                    'subtotal' => $subtotal,
+                ]);
 
-        //         $totalAmount += $subtotal;
-        //     }
+                $totalAmount += $subtotal;
+            }
 
-        //     // Update total_amount in the order
-        //     $order->update(['total_amount' => $totalAmount]);
-        // }
+            // Update total_amount in the order
+            $order->update(['total_amount' => $totalAmount]);
+        }
     }
 }
