@@ -8,7 +8,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Supplier;
 
-class ProductController extends Controller
+class AdminProductController extends Controller
 {
     // List all products
     public function index()

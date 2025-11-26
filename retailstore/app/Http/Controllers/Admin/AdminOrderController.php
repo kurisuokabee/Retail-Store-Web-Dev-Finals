@@ -9,7 +9,7 @@ use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Models\Customer;
 
-class OrderController extends Controller
+class AdminOrderController extends Controller
 {
     // List all orders
     public function index()
@@ -21,7 +21,7 @@ class OrderController extends Controller
     // Show a single order with details
     public function show(Order $order)
     {
-        $order->load('customer', 'details.product');
+        $order->load('customer', 'orderDetails.product');
         return view('admin.orders.show', compact('order'));
     }
 

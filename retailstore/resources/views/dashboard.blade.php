@@ -1,4 +1,4 @@
-<div>
+{{-- <div>
     <!-- We must ship. - Taylor Otwell -->
     <h1>Dashboard</h1>
     <p>Welcome to your dashboard!</p>
@@ -16,5 +16,9 @@
         @csrf
         <button type="submit">Logout</button>
     </form>
-</div>
 
+    ignore this muna
+    
+</div>
+ --}}
+ 

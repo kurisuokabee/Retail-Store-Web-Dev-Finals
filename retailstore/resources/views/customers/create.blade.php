@@ -1,4 +1,4 @@
-<div>
+{{-- <div>
     <!-- Nothing in life is to be feared, it is only to be understood. Now is the time to understand more, so that we may fear less. - Marie Curie -->
     <form action = "/customers" method="POST">
         @csrf
@@ -29,4 +29,6 @@
         <button type = "submit">Create Customer</button>
     </form>
         <a href="{{ route('customers.index') }}">Back To Customers List</a>
-</div>
+
+        ignore this muna
+</div> --}}

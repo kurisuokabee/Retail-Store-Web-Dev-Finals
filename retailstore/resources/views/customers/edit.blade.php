@@ -30,5 +30,5 @@
         <br>
         <button type = "submit">Save Changes</button>
     </form>
-        <a href="{{ route('customers.index') }}">Back To Customers List</a>
+        <button onclick="window.history.back()">Back</button>
 </div>

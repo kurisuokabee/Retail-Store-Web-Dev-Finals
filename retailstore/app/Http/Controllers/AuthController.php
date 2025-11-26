@@ -17,13 +17,13 @@ class AuthController extends Controller
     {
        $credentials = $request->validate([
            'email' => 'required|email',
-           'password' => 'required|min:6',
+           'password' => 'required|min:3',
        ]);
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             $request->session()->put('customer_id', Auth::user()->customer_id);
-            return redirect()->intended(route('dashboard'));
+            return redirect()->intended(route('products.browse'));
         }
 
         return back()->withErrors([
@@ -56,7 +56,7 @@ class AuthController extends Controller
         Auth::login($user);
         $request->session()->regenerate();
 
-        return redirect()->route('dashboard');
+        return redirect()->route('products.browse');
     }
 
     public function logout(Request $request)

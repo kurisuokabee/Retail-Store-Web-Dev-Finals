@@ -1,9 +1,6 @@
-@extends('layouts.app')
-
-@section('content')
 <div>
     <h1>Checkout</h1>
-    
+
     @if ($errors->any())
         <div style="color: red; margin-bottom: 20px;">
             @foreach ($errors->all() as $error)
@@ -69,4 +66,3 @@
         <a href="{{ route('products.browse') }}">Continue Shopping</a>
     </div>
 </div>
-@endsection

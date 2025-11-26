@@ -1,4 +1,4 @@
-<div>
+{{-- <div>
     <!-- Always remember that you are absolutely unique. Just like everyone else. - Margaret Mead -->
     <div>
         <a href={{ route('customers.create') }}>Create New Customer</a>
@@ -10,4 +10,7 @@
         <p>Phone: {{ $customer->phone }}</p>
     </div>
     @endforeach
-</div>
+
+    ignore this muna
+    
+</div> --}}

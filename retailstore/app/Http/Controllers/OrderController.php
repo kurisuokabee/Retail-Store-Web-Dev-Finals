@@ -106,11 +106,14 @@ class OrderController extends Controller
             foreach ($cart as $product_id => $quantity) {
                 $product = Product::findOrFail($product_id);
 
+                $subtotal = $product->unit_price * $quantity;  // 🔥 NEW LINE
+
                 OrderDetail::create([
                     'order_id' => $order->order_id,
                     'product_id' => $product_id,
                     'quantity' => $quantity,
                     'unit_price' => $product->unit_price,
+                    'subtotal' => $subtotal,                    // 🔥 REQUIRED
                 ]);
 
                 // Update inventory
@@ -126,43 +129,14 @@ class OrderController extends Controller
             session()->forget('cart');
 
             return redirect()->route('orders.show', $order->order_id)
-                           ->with('success', 'Order placed successfully!');
+                        ->with('success', 'Order placed successfully!');
 
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->withErrors(['error' => 'Failed to place order: ' . $e->getMessage()]);
         }
     }
+    
 
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Order $order)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Order $order)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Order $order)
-    {
-        //
-    }
+    
 }

@@ -11,12 +11,15 @@
         <p>Created At: {{$customer->created_at }}</p>
     </div>
     <form action="{{ route('customers.destroy', $customer->customer_id) }}" method="POST" 
-        onsubmit="return confirm('Y u du dis?');">
+        onsubmit="return confirm('Delete account?');">
         @csrf
         @method('DELETE')
-        <button type="Submit">Smite thine Customer</button>
+        <button type="Submit">Delete your account?</button>
     </form>
-    <a href="{{ route('customers.edit', $customer->customer_id) }}">Edit Customer</a>
-    <a href="{{ route('customers.index') }}">Back To Customers List</a>
+    <a href="{{ route('customers.edit', $customer->customer_id) }}">Edit information</a>
+
+    <div style="margin-top: 20px;">
+        <a href="{{ route('products.browse') }}">Continue Shopping</a>
+    </div>
 </div>
 </div>

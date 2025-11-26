@@ -1,23 +1,18 @@
-@extends('layouts.app')
-
-@section('content')
 <div>
     <h1>Order Details</h1>
-    
+
     @if (session('success'))
-        <div style="color: green; margin-bottom: 20px;">
-            {{ session('success') }}
-        </div>
+        <p style="color: green;">{{ session('success') }}</p>
     @endif
 
     <div style="border: 1px solid #ccc; padding: 15px; margin-bottom: 15px;">
         <h3>Order #{{ $order->order_id }}</h3>
-        <p><strong>Order Date:</strong> {{ $order->order_date->format('M d, Y H:i') }}</p>
-        <p><strong>Status:</strong> {{ ucfirst($order->order_status) }}</p>
-        <p><strong>Payment Status:</strong> {{ ucfirst($order->payment_status) }}</p>
-        <p><strong>Total Amount:</strong> ${{ number_format($order->total_amount, 2) }}</p>
-        <p><strong>Payment Method:</strong> {{ ucfirst(str_replace('_', ' ', $order->payment_method)) }}</p>
-        <p><strong>Shipping Address:</strong> {{ $order->shipping_address }}</p>
+        <p>Order Date: {{ \Carbon\Carbon::parse($order->order_date)->format('M d, Y H:i') }}</p>
+        <p>Status: {{ ucfirst($order->order_status) }}</p>
+        <p>Payment Status: {{ ucfirst($order->payment_status) }}</p>
+        <p>Total Amount: ${{ number_format($order->total_amount, 2) }}</p>
+        <p>Payment Method: {{ ucfirst(str_replace('_', ' ', $order->payment_method)) }}</p>
+        <p>Shipping Address: {{ $order->shipping_address }}</p>
     </div>
 
     <h2>Order Items</h2>
@@ -26,7 +21,7 @@
             <tr>
                 <th>Product</th>
                 <th>Description</th>
-                <th>Quantity</th>
+                <th>Qty</th>
                 <th>Unit Price</th>
                 <th>Subtotal</th>
             </tr>
@@ -44,14 +39,12 @@
         </tbody>
     </table>
 
-    <div style="text-align: right; margin-top: 20px; font-size: 18px; font-weight: bold;">
-        <p>Order Total: ${{ number_format($order->total_amount, 2) }}</p>
-    </div>
+    <p style="text-align: right; font-weight: bold; margin-top: 20px;">
+        Order Total: ${{ number_format($order->total_amount, 2) }}
+    </p>
 
-    <div style="margin-top: 20px;">
-        <a href="{{ route('orders.history') }}">Back to Order History</a>
-        <span style="margin: 0 10px;">|</span>
+    <p>
+        <a href="{{ route('orders.history') }}">Back to Order History</a> |
         <a href="{{ route('products.browse') }}">Continue Shopping</a>
-    </div>
+    </p>
 </div>
-@endsection

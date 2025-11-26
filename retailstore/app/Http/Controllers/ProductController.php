@@ -13,8 +13,12 @@ class ProductController extends Controller
      */
     public function browse()
     {
-        $products = Product::with(['category', 'inventory'])->where('is_active', true)->paginate(10);
+        $products = Product::with(['category', 'inventory'])
+                            ->where('is_active', true)
+                            ->get(); // <-- changed
+                            
         $categories = Category::all();
+
         return view('products.browse', compact('products', 'categories'));
     }
 
@@ -23,7 +27,9 @@ class ProductController extends Controller
      */
     public function details($product_id)
     {
-        $product = Product::with(['category', 'supplier', 'inventory'])->findOrFail($product_id);
+        $product = Product::with(['category', 'supplier', 'inventory'])
+                          ->findOrFail($product_id);
+
         return view('products.details', compact('product'));
     }
 
@@ -35,8 +41,10 @@ class ProductController extends Controller
         $products = Product::where('category_id', $category_id)
                             ->where('is_active', true)
                             ->with(['category', 'inventory'])
-                            ->paginate(10);
+                            ->get(); // <-- changed
+
         $categories = Category::all();
+
         return view('products.browse', compact('products', 'categories'));
     }
 
@@ -80,61 +88,5 @@ class ProductController extends Controller
         session(['cart' => $cart]);
 
         return back()->with('success', 'Product removed from cart');
-    }
-
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }
