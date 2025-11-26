@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Customer;
 
 class CustomerController extends Controller
 {
@@ -11,7 +14,9 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        //Quesry Using Eloquent ORM
+        $customers = Customer::all(); //all records from customer table
+        return view('customers.index', ['customers' => $customers]);
     }
 
     /**
@@ -19,7 +24,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+        return view('customers.create'); //form to create a new customer
     }
 
     /**
@@ -27,7 +32,28 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //click submit in create form
+        $validatedData = $request->validate([
+            'username' => 'required|max:50|unique:customers,username',
+            'email' => 'required|email|unique:customers,email',
+            'password' => 'required|min:8',
+            'first_name' => 'required|max:50',
+            'last_name' => 'required|max:50',
+            'date_of_birth' => 'nullable|date',
+            'address' => 'nullable',
+            'phone' => 'nullable|max:20',
+        ]);
+
+        // Hash incoming password and map to the DB column `password_hash`.
+        $validatedData['password_hash'] = Hash::make($validatedData['password']);
+        unset($validatedData['password']);
+
+        $customer = Customer::create($validatedData); //insert into customer table
+
+        // Log the new customer in
+        Auth::login($customer);
+
+        return redirect()->route('customers.index');
     }
 
     /**
@@ -35,7 +61,8 @@ class CustomerController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $customer = Customer::find($id);
+        return view('customers.show', ['customer' => $customer]);
     }
 
     /**
@@ -43,7 +70,8 @@ class CustomerController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $customer = Customer::find($id);
+        return view('customers.edit', ['customer' => $customer]);
     }
 
     /**
@@ -51,7 +79,24 @@ class CustomerController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+            $validatedData = $request->validate([
+                'username' => 'required|max:50|unique:customers,username,' . $id . ', customer_id', 
+                'email' => 'required|email|unique:customers,email,' . $id . ', customer_id',
+                'password' => 'required|min:8',
+            'first_name' => 'required|max:50',
+            'last_name' => 'required|max:50',
+            'date_of_birth' => 'nullable|date',
+            'address' => 'nullable',
+            'phone' => 'nullable|max:20',
+        ]);
+
+        $customer = Customer::find($id);
+        $validatedData['password_hash'] = Hash::make($validatedData['password']);
+        unset($validatedData['password']);
+
+        $customer->update($validatedData); //update customer table
+
+        return redirect()->route('customers.index');
     }
 
     /**
@@ -59,6 +104,8 @@ class CustomerController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $customer = Customer::find($id);
+        $customer->delete();
+        return redirect()->route('customers.index');
     }
 }

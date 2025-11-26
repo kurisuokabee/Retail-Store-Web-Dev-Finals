@@ -15,5 +15,10 @@
     <li><a href="{{ route('admin.reports.index') }}">View Reports</a></li>
 </ul>
 
+<form method="POST" action="{{ route('admin.logout') }}">
+        @csrf
+        <button type="submit">Logout</button>
+    </form>
+    
 </body>
 </html>
