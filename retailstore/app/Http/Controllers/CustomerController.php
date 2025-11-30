@@ -45,7 +45,7 @@ class CustomerController extends Controller
         ]);
 
         // Hash incoming password and map to the DB column `password_hash`.
-        $validatedData['password_hash'] = Hash::make($validatedData['password']);
+        $validatedData['password'] = Hash::make($validatedData['password']);
         unset($validatedData['password']);
 
         $customer = Customer::create($validatedData); //insert into customer table
@@ -79,10 +79,10 @@ class CustomerController extends Controller
      */
     public function update(Request $request, string $id)
     {
-            $validatedData = $request->validate([
-                'username' => 'required|max:50|unique:customers,username,' . $id . ', customer_id', 
-                'email' => 'required|email|unique:customers,email,' . $id . ', customer_id',
-                'password' => 'required|min:8',
+        $validatedData = $request->validate([
+            'username' => 'required|max:50|unique:customers,username,' . $id . ',customer_id',
+            'email' => 'required|email|unique:customers,email,' . $id . ',customer_id',
+            'password' => 'nullable|string',
             'first_name' => 'required|max:50',
             'last_name' => 'required|max:50',
             'date_of_birth' => 'nullable|date',
@@ -90,13 +90,18 @@ class CustomerController extends Controller
             'phone' => 'nullable|max:20',
         ]);
 
-        $customer = Customer::find($id);
-        $validatedData['password_hash'] = Hash::make($validatedData['password']);
-        unset($validatedData['password']);
+        $customer = Customer::findOrFail($id);
 
-        $customer->update($validatedData); //update customer table
+        // Hash password correctly
+        if (!empty($validatedData['password'])) {
+            $validatedData['password'] = Hash::make($validatedData['password']);
+        } else {
+            unset($validatedData['password']); // leave old password unchanged
+        }
 
-        return redirect()->route('customers.index');
+        $customer->update($validatedData);
+
+        return redirect()->route('customers.show',  $customer->customer_id)->with('success', 'Info updated successfully.');
     }
 
     /**
