@@ -2,21 +2,23 @@
     <h1>Order Details</h1>
 
     @if (session('success'))
-        <p style="color: green;">{{ session('success') }}</p>
+        <p style="color: green; margin-bottom: 15px;">{{ session('success') }}</p>
     @endif
 
-    <div style="border: 1px solid #ccc; padding: 15px; margin-bottom: 15px;">
+    <!-- Order Summary -->
+    <div style="border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; border-radius: 5px;">
         <h3>Order #{{ $order->order_id }}</h3>
-        <p>Order Date: {{ \Carbon\Carbon::parse($order->order_date)->format('M d, Y H:i') }}</p>
-        <p>Status: {{ ucfirst($order->order_status) }}</p>
-        <p>Payment Status: {{ ucfirst($order->payment_status) }}</p>
-        <p>Total Amount: ${{ number_format($order->total_amount, 2) }}</p>
-        <p>Payment Method: {{ ucfirst(str_replace('_', ' ', $order->payment_method)) }}</p>
-        <p>Shipping Address: {{ $order->shipping_address }}</p>
+        <p><strong>Order Date:</strong> {{ \Carbon\Carbon::parse($order->order_date)->format('M d, Y H:i') }}</p>
+        <p><strong>Status:</strong> {{ ucfirst($order->order_status) }}</p>
+        <p><strong>Payment Status:</strong> {{ ucfirst($order->payment_status) }}</p>
+        <p><strong>Total Amount:</strong> ${{ number_format($order->total_amount, 2) }}</p>
+        <p><strong>Payment Method:</strong> {{ ucfirst(str_replace('_', ' ', $order->payment_method)) }}</p>
+        <p><strong>Shipping Address:</strong> {{ $order->shipping_address }}</p>
     </div>
 
+    <!-- Order Items Table -->
     <h2>Order Items</h2>
-    <table border="1" cellpadding="10" style="width: 100%;">
+    <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; border-collapse: collapse;">
         <thead>
             <tr>
                 <th>Product</th>
@@ -39,12 +41,14 @@
         </tbody>
     </table>
 
-    <p style="text-align: right; font-weight: bold; margin-top: 20px;">
+    <!-- Order Total -->
+    <p style="text-align: right; font-weight: bold; margin-top: 15px;">
         Order Total: ${{ number_format($order->total_amount, 2) }}
     </p>
 
-    <p>
-        <a href="{{ route('orders.history') }}">Back to Order History</a> |
-        <a href="{{ route('products.browse') }}">Continue Shopping</a>
+    <!-- Navigation -->
+    <p style="margin-top: 20px;">
+        <a href="{{ route('orders.history') }}">← Back to Order History</a> |
+        <a href="{{ route('products.browse') }}">Continue Shopping →</a>
     </p>
 </div>

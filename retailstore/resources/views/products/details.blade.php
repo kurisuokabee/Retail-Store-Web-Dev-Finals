@@ -1,6 +1,7 @@
 <div>
     <h1>{{ $product->product_name }}</h1>
 
+    <!-- Error Messages -->
     @if ($errors->any())
         <div style="color: red; margin-bottom: 20px;">
             @foreach ($errors->all() as $error)
@@ -9,12 +10,14 @@
         </div>
     @endif
 
+    <!-- Success Message -->
     @if (session('success'))
         <div style="color: green; margin-bottom: 20px;">
             {{ session('success') }}
         </div>
     @endif
 
+    <!-- Product Info -->
     <div style="margin-bottom: 20px;">
         <p><strong>Description:</strong> {{ $product->description }}</p>
         <p><strong>Category:</strong> {{ $product->category->category_name ?? 'N/A' }}</p>
@@ -23,6 +26,7 @@
         <p><strong>Stock Available:</strong> {{ $product->inventory->stock_quantity ?? 0 }}</p>
     </div>
 
+    <!-- Add to Cart -->
     @if ($product->inventory && $product->inventory->stock_quantity > 0)
         <form method="POST" action="{{ route('products.addToCart', $product->product_id) }}">
             @csrf
@@ -31,9 +35,10 @@
             <button type="submit">Add to Cart</button>
         </form>
     @else
-        <p style="color: red;">Out of Stock</p>
+        <p style="color: red; font-weight: bold;">Out of Stock</p>
     @endif
 
+    <!-- Back Link -->
     <div style="margin-top: 20px;">
         <a href="{{ route('products.browse') }}">Back to Products</a>
     </div>

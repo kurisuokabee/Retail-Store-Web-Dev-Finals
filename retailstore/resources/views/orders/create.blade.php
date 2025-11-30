@@ -1,6 +1,7 @@
 <div>
     <h1>Checkout</h1>
 
+    <!-- Error messages -->
     @if ($errors->any())
         <div style="color: red; margin-bottom: 20px;">
             @foreach ($errors->all() as $error)
@@ -9,8 +10,9 @@
         </div>
     @endif
 
+    <!-- Order summary table -->
     <h2>Order Summary</h2>
-    <table border="1" cellpadding="10">
+    <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; border-collapse: collapse;">
         <thead>
             <tr>
                 <th>Product</th>
@@ -31,7 +33,7 @@
                         <form method="POST" action="{{ route('products.removeFromCart', $item['product']->product_id) }}" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit">Remove</button>
+                            <button type="submit" style="padding: 5px 10px;">Remove</button>
                         </form>
                     </td>
                 </tr>
@@ -39,18 +41,20 @@
         </tbody>
     </table>
 
+    <!-- Total amount -->
     <h2 style="text-align: right; margin-top: 20px;">Total: ${{ number_format($total, 2) }}</h2>
 
+    <!-- Delivery & Payment Form -->
     <h2>Delivery Information</h2>
     <form method="POST" action="{{ route('orders.store') }}">
         @csrf
-        <div>
-            <label for="shipping_address">Shipping Address:</label>
-            <textarea id="shipping_address" name="shipping_address" required></textarea>
+        <div style="margin-bottom: 15px;">
+            <label for="shipping_address">Shipping Address:</label><br>
+            <textarea id="shipping_address" name="shipping_address" rows="4" cols="50" required></textarea>
         </div>
 
-        <div>
-            <label for="payment_method">Payment Method:</label>
+        <div style="margin-bottom: 15px;">
+            <label for="payment_method">Payment Method:</label><br>
             <select id="payment_method" name="payment_method" required>
                 <option value="">Select Payment Method</option>
                 <option value="credit_card">Credit Card</option>
@@ -59,9 +63,10 @@
             </select>
         </div>
 
-        <button type="submit">Place Order</button>
+        <button type="submit" style="padding: 10px 15px;">Place Order</button>
     </form>
 
+    <!-- Continue shopping link -->
     <div style="margin-top: 20px;">
         <a href="{{ route('products.browse') }}">Continue Shopping</a>
     </div>
