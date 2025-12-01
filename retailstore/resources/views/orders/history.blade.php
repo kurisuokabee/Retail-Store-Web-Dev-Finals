@@ -4,70 +4,104 @@
 
 @section('content')
 
+    <!-- Force-load history.css here (same pattern used by other product/order pages) -->
+    @php
+        $publicCssPath = public_path('css/history.css');
+        $resourceCssPath = resource_path('css/history.css');
+    @endphp
+
+    @if (file_exists($publicCssPath))
+        <link rel="stylesheet" href="{{ asset('css/history.css') }}">
+    @elseif (function_exists('vite'))
+        @vite(['resources/css/history.css'])
+    @elseif (Illuminate\Support\Facades\File::exists($resourceCssPath))
+        <style>
+            {!! Illuminate\Support\Facades\File::get($resourceCssPath) !!}
+        </style>
+    @endif
+
 <header>
     @include('components.navbar')
 </header>
 
-<div>
-    <!-- Continue shopping link -->
-    <div style="margin-bottom: 20px;">
-        <a href="{{ route('products.browse') }}">← Continue Shopping</a>
-    </div>
-
+<main class="container">
     <h1>Order History</h1>
 
-    <!-- Success message -->
     @if (session('success'))
-        <div style="color: green; margin-bottom: 15px;">
+        <div class="alert alert-success" style="margin-bottom:12px;">
             {{ session('success') }}
         </div>
     @endif
 
-    <!-- Orders listing -->
-    @forelse ($orders as $order)
-        <div style="border: 1px solid #ccc; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
-            <h3>Order #{{ $order->order_id }}</h3>
-            <p><strong>Order Date:</strong> {{ $order->order_date->format('M d, Y') }}</p>
-            <p><strong>Status:</strong> {{ ucfirst($order->order_status) }}</p>
-            <p><strong>Payment Status:</strong> {{ ucfirst($order->payment_status) }}</p>
-            <p><strong>Total:</strong> ${{ number_format($order->total_amount, 2) }}</p>
-            <p><strong>Payment Method:</strong> {{ ucfirst(str_replace('_', ' ', $order->payment_method)) }}</p>
-            <p><strong>Shipping Address:</strong> {{ $order->shipping_address }}</p>
+    <section class="panel orders-list">
+        @forelse ($orders as $order)
+            <article class="order-card">
+                <header class="order-card-head">
+                    <div>
+                        <div class="order-id">Order #{{ $order->order_id }}</div>
 
-            <!-- Order items -->
-            <h4>Items:</h4>
-            <table border="1" cellpadding="5" cellspacing="0" style="width: 100%; border-collapse: collapse;">
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Qty</th>
-                        <th>Unit Price</th>
-                        <th>Subtotal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($order->orderDetails as $detail)
-                        <tr>
-                            <td>{{ $detail->product->product_name }}</td>
-                            <td>{{ $detail->quantity }}</td>
-                            <td>${{ number_format($detail->unit_price, 2) }}</td>
-                            <td>${{ number_format($detail->unit_price * $detail->quantity, 2) }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                        @php
+                            // normalize status to safe CSS class names, e.g. "order-shipped"
+                            $orderStatusClass = 'order-'.\Illuminate\Support\Str::slug($order->order_status ?? 'unknown', '-');
+                            $paymentStatusClass = 'payment-'.\Illuminate\Support\Str::slug($order->payment_status ?? 'unknown', '-');
+                        @endphp
 
-            <div style="margin-top: 10px;">
-                <a href="{{ route('orders.show', $order->order_id) }}">View Details</a>
+                        <div class="order-meta small-muted">
+                            Placed {{ $order->order_date->format('M d, Y H:i') }}
+                            • Order<span class="status {{ $orderStatusClass }}">{{ ucfirst(str_replace('_',' ', $order->order_status)) }}</span>
+                            • Payment<span class="payment {{ $paymentStatusClass }}">{{ ucfirst(str_replace('_',' ', $order->payment_status)) }}</span>
+                        </div>
+                    </div>
+                    <div class="order-total">
+                        <div class="total-label">Total</div>
+                        <div class="total-amount">${{ number_format($order->total_amount, 2) }}</div>
+                    </div>
+                </header>
+
+                <div class="order-body">
+                    <div class="order-items">
+                        @foreach ($order->orderDetails as $detail)
+                            <div class="order-item-row">
+                                <div class="item-thumb">
+                                    @php
+                                        $thumb = $detail->product->image_url ?? '/images/generic-product.png';
+                                        if (!preg_match('/^https?:\\/\\//i', $thumb)) {
+                                            $thumb = asset(ltrim($thumb, '/'));
+                                        }
+                                    @endphp
+                                    <img src="{{ $thumb }}" alt="{{ $detail->product->product_name ?? 'Product' }}" loading="lazy">
+                                </div>
+                                <div class="item-info">
+                                    <div class="item-name">{{ $detail->product->product_name ?? 'Product' }}</div>
+                                    <div class="item-meta small-muted">{{ $detail->quantity }} × ${{ number_format($detail->unit_price, 2) }}</div>
+                                </div>
+                                <div class="item-subtotal">${{ number_format($detail->unit_price * $detail->quantity, 2) }}</div>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <div class="order-actions-row">
+                        <a href="{{ route('orders.show', $order->order_id) }}" class="btn btn-view">View Details</a>
+                    </div>
+                </div>
+
+                <footer class="order-card-foot">
+                    <div class="shipping-address"><strong>Shipping:</strong> {{ $order->shipping_address }}</div>
+                    <div class="payment-method small-muted">{{ ucfirst(str_replace('_',' ', $order->payment_method)) }}</div>
+                </footer>
+            </article>
+        @empty
+            <div class="empty-state panel">
+                <p>No orders found.</p>
+                <p class="small-muted">Once you place orders they'll appear here for tracking and details.</p>
             </div>
-        </div>
-    @empty
-        <p>No orders found.</p>
-    @endforelse
+        @endforelse
 
-    <!-- Pagination -->
-    <div style="margin-top: 20px;">
-        {{ $orders->links() }}
-    </div>
-</div>
+        <!-- Pagination -->
+        <div class="pagination pagination-wrapper" style="margin-top: 16px;">
+            {{ $orders->links() }}
+        </div>
+    </section>
+</main>
+
 @endsection

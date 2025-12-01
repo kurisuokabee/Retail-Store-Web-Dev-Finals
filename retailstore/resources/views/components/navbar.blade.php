@@ -53,6 +53,14 @@
             border: none;
             cursor: pointer;
             font-size: 0.95rem;
+
+            /* ensure uniform typography for anchors and buttons */
+            font-family: inherit;
+            font-weight: 600;        /* match link weight */
+            line-height: 1;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
         }
         .nav-list a:hover, .nav-list button:hover {
             background: #e9ecef;

@@ -6,10 +6,6 @@
 
     <!-- Force-load browse.css here -->
     @php
-        // Check three ways to include a stylesheet:
-        // 1) Public compiled file under public/css/browse.css
-        // 2) Vite (dev/compiled assets)
-        // 3) Inline fallback reading from resources/css/browse.css (useful in dev before building)
         $publicCssPath = public_path('css/browse.css');
         $resourceCssPath = resource_path('css/browse.css');
     @endphp
@@ -121,9 +117,25 @@
 
                         <h4>Price</h4>
                         <div class="price-range">
-                            <a href="{{ \Illuminate\Support\Facades\Route::has('products.browse') ? route('products.browse', array_merge(request()->query(), ['max_price' => 50])) : '#' }}">Under $50</a>
-                            <a href="{{ \Illuminate\Support\Facades\Route::has('products.browse') ? route('products.browse', array_merge(request()->query(), ['max_price' => 100])) : '#' }}">Under $100</a>
-                            <a href="{{ \Illuminate\Support\Facades\Route::has('products.browse') ? route('products.browse', array_merge(request()->query(), ['min_price' => 100])) : '#' }}">$100+</a>
+                            <!-- Checkboxes behave like single-select toggles (check to apply, uncheck to clear) -->
+                            <label>
+                                <input type="checkbox" class="price-checkbox" data-min="" data-max="50"
+                                    {{ (request('max_price') !== null && intval(request('max_price')) === 50 && !request('min_price')) ? 'checked' : '' }}
+                                    onchange="handlePriceToggle(this)">
+                                Under $50
+                            </label>
+                            <label>
+                                <input type="checkbox" class="price-checkbox" data-min="" data-max="100"
+                                    {{ (request('max_price') !== null && intval(request('max_price')) === 100 && !request('min_price')) ? 'checked' : '' }}
+                                    onchange="handlePriceToggle(this)">
+                                Under $100
+                            </label>
+                            <label>
+                                <input type="checkbox" class="price-checkbox" data-min="100" data-max=""
+                                    {{ (request('min_price') !== null && intval(request('min_price')) === 100 && !request('max_price')) ? 'checked' : '' }}
+                                    onchange="handlePriceToggle(this)">
+                                $100+
+                            </label>
                         </div>
                     </div>
                 </aside>
@@ -273,6 +285,30 @@
                 document.querySelector('.filters').classList.toggle('open');
             });
         }());
+
+        // Price checkbox handler: single-select behaviour and update URL preserving other params
+        function handlePriceToggle(el) {
+            // Uncheck other price checkboxes (enforce single selection)
+            document.querySelectorAll('.price-checkbox').forEach(function(cb){
+                if (cb !== el) cb.checked = false;
+            });
+
+            var u = new URL(location.href);
+            // Remove pagination when filters change
+            u.searchParams.delete('page');
+
+            if (el.checked) {
+                if (el.dataset.min && el.dataset.min !== '') u.searchParams.set('min_price', el.dataset.min); else u.searchParams.delete('min_price');
+                if (el.dataset.max && el.dataset.max !== '') u.searchParams.set('max_price', el.dataset.max); else u.searchParams.delete('max_price');
+            } else {
+                // clear price filters
+                u.searchParams.delete('min_price');
+                u.searchParams.delete('max_price');
+            }
+
+            // Navigate to the new URL (preserves other query params like category, sort, query, in_stock)
+            window.location = u.toString();
+        }
     </script>
 
 @endsection
