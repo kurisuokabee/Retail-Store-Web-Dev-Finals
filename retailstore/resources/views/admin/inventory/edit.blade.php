@@ -5,6 +5,11 @@
     <title>Edit Inventory</title>
 </head>
 <body>
+@extends('layouts.app')
+
+@section('title', 'Edit Inventory')
+
+@section('content')
     <!-- Main heading of the page -->
     <h1>Edit Inventory</h1>
 
@@ -80,5 +85,6 @@
             <button type="submit">Update Inventory</button>
         </p>
     </form>
+@endsection
 </body>
 </html>

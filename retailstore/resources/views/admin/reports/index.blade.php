@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <!-- Sets the title of the page shown in the browser tab -->
-    <title>Reports</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('title', 'Reports')
+
+@section('content')
     <!-- Main heading of the page -->
     <h1>Reports</h1>
 
@@ -90,6 +88,4 @@
             @endforelse
         </tbody>
     </table>
-
-</body>
-</html>
+@endsection

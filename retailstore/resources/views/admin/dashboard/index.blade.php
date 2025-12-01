@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <!-- Sets the title of the page shown in the browser tab -->
-    <title>Admin Dashboard</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('title', 'Admin Dashboard')
+
+@section('content')
     <!-- Main heading of the page -->
     <h1>Admin Dashboard</h1>
 
@@ -31,6 +29,4 @@
         <!-- Logout button -->
         <button type="submit">Logout</button>
     </form>
-    
-</body>
-</html>
+@endsection

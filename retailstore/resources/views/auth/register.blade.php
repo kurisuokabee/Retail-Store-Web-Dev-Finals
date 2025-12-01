@@ -1,3 +1,8 @@
+@extends('layouts.app')
+
+@section('title', 'Register')
+
+@section('content')
 <div>
     <!-- Main heading for the registration page -->
     <h1>Register</h1>
@@ -50,3 +55,4 @@
     <!-- Button to go back to the login page -->
     <button onclick="location.href='{{ route('login') }}'">Back to Login</button>
 </div>
+@endsection

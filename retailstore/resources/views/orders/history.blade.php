@@ -1,3 +1,8 @@
+@extends('layouts.app')
+
+@section('title', 'Order History')
+
+@section('content')
 <div>
     <!-- Continue shopping link -->
     <div style="margin-bottom: 20px;">
@@ -60,3 +65,4 @@
         {{ $orders->links() }}
     </div>
 </div>
+@endsection

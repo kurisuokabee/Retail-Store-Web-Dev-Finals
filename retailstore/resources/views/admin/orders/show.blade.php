@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <!-- Sets the title of the page shown in the browser tab -->
-    <title>Order Details</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('title', 'Order Details')
+
+@section('content')
     <!-- Main heading displaying the order ID -->
     <h1>Order #{{ $order->order_id }} Details</h1>
 
@@ -46,5 +44,4 @@
             @endforeach
         </tbody>
     </table>
-</body>
-</html>
+@endsection

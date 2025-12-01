@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- Sets the character encoding for the document to UTF-8 -->
-    <meta charset="UTF-8">
-    
-    <!-- Sets the title of the page shown in the browser tab -->
-    <title>Admin Login</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('title', 'Admin Login')
+
+@section('content')
     <!-- Main heading of the page -->
     <h1>Admin Login</h1>
 
@@ -52,5 +47,4 @@
     <br>
     <!-- Button to go back to the homepage -->
     <a href="{{ url('/') }}"><button type="button">Back</button></a>
-</body>
-</html>
+@endsection

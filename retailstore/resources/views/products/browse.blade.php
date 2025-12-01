@@ -1,4 +1,8 @@
-<body>
+@extends('layouts.app')
+
+@section('title', 'Browse Products')
+
+@section('content')
     <!-- Navigation -->
     <nav style="margin-bottom: 20px;">
         @auth
@@ -84,4 +88,4 @@
             </table>
         </div>
     </main>
-</body>
+@endsection

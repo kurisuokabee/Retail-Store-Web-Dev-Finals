@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <!-- Page title displayed in the browser tab -->
-    <title>Edit Supplier</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('title', 'Edit Supplier')
+
+@section('content')
     <!-- Main heading -->
     <h1>Edit Supplier</h1>
 
@@ -65,5 +63,4 @@
             <button type="submit">Update Supplier</button>
         </p>
     </form>
-</body>
-</html>
+@endsection

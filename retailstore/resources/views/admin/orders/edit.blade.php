@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <!-- Sets the title of the page shown in the browser tab -->
-    <title>Update Order</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('title', 'Update Order')
+
+@section('content')
     <!-- Main heading of the page displaying the order ID -->
     <h1>Update Order #{{ $order->order_id }}</h1>
 
@@ -59,5 +57,4 @@
             <button type="submit">Update Order</button>
         </p>
     </form>
-</body>
-</html>
+@endsection

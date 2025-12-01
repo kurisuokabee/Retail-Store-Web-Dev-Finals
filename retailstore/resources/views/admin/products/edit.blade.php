@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <!-- Sets the title of the page shown in the browser tab -->
-    <title>Edit Product</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('title', 'Edit Product')
+
+@section('content')
     <!-- Main heading of the page -->
     <h1>Edit Product</h1>
 
@@ -83,5 +81,4 @@
             <button type="submit">Update Product</button>
         </p>
     </form>
-</body>
-</html>
+@endsection

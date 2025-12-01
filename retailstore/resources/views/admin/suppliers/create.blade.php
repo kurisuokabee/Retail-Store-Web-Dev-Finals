@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <!-- Sets the title of the page shown in the browser tab -->
-    <title>Add Supplier</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('title', 'Add Supplier')
+
+@section('content')
     <!-- Main heading of the page -->
     <h1>Add New Supplier</h1>
 
@@ -64,5 +62,4 @@
             <button type="submit">Add Supplier</button>
         </p>
     </form>
-</body>
-</html>
+@endsection

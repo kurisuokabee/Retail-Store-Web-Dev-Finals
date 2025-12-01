@@ -1,3 +1,8 @@
+@extends('layouts.app')
+
+@section('title', 'Login')
+
+@section('content')
 <div>
     <!-- Main heading of the login page -->
     <h1>Retail Store Login</h1>
@@ -43,3 +48,4 @@
         <button type="submit">Admin Login</button>
     </form>
 </div>
+@endsection

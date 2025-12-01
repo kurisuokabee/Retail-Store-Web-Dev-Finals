@@ -1,3 +1,8 @@
+@extends('layouts.app')
+
+@section('title', 'Product Details')
+
+@section('content')
 <div>
     <h1>{{ $product->product_name }}</h1>
 
@@ -43,3 +48,4 @@
         <a href="{{ route('products.browse') }}">Back to Products</a>
     </div>
 </div>
+@endsection

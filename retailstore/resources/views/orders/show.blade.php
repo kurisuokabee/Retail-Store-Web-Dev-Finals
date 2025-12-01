@@ -1,3 +1,8 @@
+@extends('layouts.app')
+
+@section('title', 'Order Details')
+
+@section('content')
 <div>
     <h1>Order Details</h1>
 
@@ -52,3 +57,4 @@
         <a href="{{ route('products.browse') }}">Continue Shopping →</a>
     </p>
 </div>
+@endsection

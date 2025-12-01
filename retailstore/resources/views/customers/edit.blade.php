@@ -1,3 +1,8 @@
+@extends('layouts.app')
+
+@section('title', 'Edit Customer')
+
+@section('content')
 <div>
     <!-- Main heading for the edit customer page -->
     <h1>Edit Customer</h1>
@@ -73,3 +78,4 @@
     <!-- Button to go back to the previous page -->
     <button onclick="window.history.back()">Back</button>
 </div>
+@endsection

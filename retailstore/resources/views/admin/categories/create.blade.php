@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <!-- Sets the title of the page shown in the browser tab -->
-    <title>Add Category</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('title', 'Add Category')
+
+@section('content')
     <!-- Main heading of the page -->
     <h1>Add New Category</h1>
 
@@ -60,5 +58,4 @@
             <button type="submit">Add Category</button>
         </p>
     </form>
-</body>
-</html>
+@endsection
