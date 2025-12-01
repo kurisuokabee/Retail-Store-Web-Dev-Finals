@@ -3,6 +3,11 @@
 @section('title', 'Product Details')
 
 @section('content')
+
+<header>
+    @include('components.navbar')
+</header>
+
 <div>
     <h1>{{ $product->product_name }}</h1>
 

@@ -3,6 +3,11 @@
 @section('title', 'Customer Details')
 
 @section('content')
+
+<header>
+    @include('components.navbar')
+</header>
+
 <div>
     <h1>Customer Details</h1>
 

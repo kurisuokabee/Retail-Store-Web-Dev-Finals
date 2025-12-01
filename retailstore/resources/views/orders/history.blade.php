@@ -3,6 +3,11 @@
 @section('title', 'Order History')
 
 @section('content')
+
+<header>
+    @include('components.navbar')
+</header>
+
 <div>
     <!-- Continue shopping link -->
     <div style="margin-bottom: 20px;">
