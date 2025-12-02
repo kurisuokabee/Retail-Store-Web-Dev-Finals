@@ -148,7 +148,9 @@
     box-shadow: 0 6px 20px rgba(255, 0, 86, 0.08);
     transition: 200ms ease;
 }
-.btn-view:hover {
+.btn-view:hover,
+.btn-view:focus {
+    background: #e6004d;
     transform: translateY(-2px);
     opacity: 0.95;
 }

@@ -129,6 +129,12 @@ qty-row label {
     padding: 12px 18px;
     flex: 1;
 }
+.btn-cart:hover,
+.btn-cart:focus {
+    background: #e6004d;
+    transform: translateY(-2px);
+    opacity: 0.95;
+}
 
 /* Buttons expand full width on tiny screens */
 @media (max-width: 540px) {

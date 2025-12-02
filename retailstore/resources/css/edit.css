@@ -32,7 +32,7 @@
     resize: vertical;
 }
 
-.btn-save {
+/* .btn-save {
     background: transparent;
     transition: transform 120ms ease, box-shadow 160ms ease,
         border-color 120ms ease;
@@ -43,7 +43,7 @@
     transform: translateY(-2px);
     box-shadow: 0 12px 34px rgba(17, 24, 39, 0.06);
     outline: none;
-}
+} */
 
 /* small responsive tweak to keep layout readable on small screens */
 @media (max-width: 880px) {

@@ -117,8 +117,8 @@
                     </div>
 
                     <div class="customer-actions" style="margin-top:12px;">
-                        <button type="submit" class="btn btn-save">Save Changes</button>
                         <a href="{{ route('customers.show', $customer->customer_id) }}" class="btn btn-ghost">Cancel</a>
+                        <button type="submit" class="btn btn-ghost">Save Changes</button>
                     </div>
                 </form>
             </div>

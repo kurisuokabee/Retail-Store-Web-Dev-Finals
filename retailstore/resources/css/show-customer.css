@@ -134,6 +134,15 @@
     text-decoration: none;
 }
 
+button.btn.btn-ghost {
+    color: #1a7a1a;
+}
+
+button.btn.btn-ghost:hover,
+button.btn.btn-ghost:focus {
+    background: rgba(35, 161, 35, 0.04);
+}
+
 /* danger (Delete) */
 .btn-remove {
     color: #b40000;

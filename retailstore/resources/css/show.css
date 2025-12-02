@@ -151,6 +151,15 @@
     color: #fff;
 }
 
+.btn-ghost:hover,
+.btn-ghost:focus,
+.btn-view:hover,
+.btn-view:focus {
+    background: #e6004d;
+    transform: translateY(-2px);
+    opacity: 0.95;
+}
+
 /* Mini / compact */
 .btn.mini,
 .btn-mini {
