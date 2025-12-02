@@ -97,8 +97,17 @@
         <ul class="nav-list">
             @auth
                 <li><a href="{{ route('orders.history') }}">My Orders</a></li>
-                <li><a href="{{ route('customers.show', Auth::user()->customer_id) }}">My Profile</a></li>
-                @php $cartCount = count(session('cart', [])); @endphp
+
+                @php
+                    // safely get customer id (may be null for some auth users like admins)
+                    $customerId = optional(Auth::user())->customer_id;
+                    $cartCount = count(session('cart', []));
+                @endphp
+
+                @if($customerId)
+                    <li><a href="{{ route('customers.show', $customerId) }}">My Profile</a></li>
+                @endif
+
                 <li><a href="{{ route('orders.checkout') }}">Cart ({{ $cartCount }})</a></li>
                 <li>
                     <form method="POST" action="{{ route('auth.logout') }}" class="logout-form">

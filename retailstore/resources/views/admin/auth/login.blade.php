@@ -3,48 +3,64 @@
 @section('title', 'Admin Login')
 
 @section('content')
-    <!-- Main heading of the page -->
-    <h1>Admin Login</h1>
 
-    <!-- Check if there are any validation errors from the backend -->
-    @if ($errors->any())
-        <!-- Display errors in a red-colored box -->
-        <div style="color: red;">
-            <ul>
-                <!-- Loop through all errors and display each one in a list item -->
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+    <!-- Force-load login.css so admin login matches the site's auth styling -->
+    @php
+        $publicCssPath = public_path('css/login.css');
+        $resourceCssPath = resource_path('css/login.css');
+    @endphp
+
+    @if (file_exists($publicCssPath))
+        <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+    @elseif (function_exists('vite'))
+        @vite(['resources/css/login.css'])
+    @elseif (Illuminate\Support\Facades\File::exists($resourceCssPath))
+        <style>
+            {!! Illuminate\Support\Facades\File::get($resourceCssPath) !!}
+        </style>
     @endif
 
-    <!-- Form to submit admin login credentials -->
-    <form action="{{ route('admin.login.submit') }}" method="POST">
-        <!-- CSRF token for security, prevents cross-site request forgery -->
-        @csrf
-        
-        <p>
-            <!-- Label for email input -->
-            <label for="email">Email:</label><br>
-            <!-- Email input field; required to be filled before submission -->
-            <input type="email" name="email" id="email" required>
-        </p>
+    <!-- Header / Navigation -->
+    <header>
+        @include('components.navbar')
+    </header>
 
-        <p>
-            <!-- Label for password input -->
-            <label for="password">Password:</label><br>
-            <!-- Password input field; required to be filled before submission -->
-            <input type="password" name="password" id="password" required>
-        </p>
+    <main class="auth-page">
+        <div class="auth-card">
+            <div class="auth-brand">
+                <h1>Admin Portal</h1>
+                <p class="auth-sub">Sign in to manage the store</p>
+            </div>
 
-        <p>
-            <!-- Submit button for the form -->
-            <button type="submit">Login</button>
-        </p>
-    </form>
+            <!-- Validation errors -->
+            @if ($errors->any())
+                <div class="alert alert-error auth-errors" role="alert">
+                    @foreach ($errors->all() as $error)
+                        <div>{{ $error }}</div>
+                    @endforeach
+                </div>
+            @endif
 
-    <br>
-    <!-- Button to go back to the homepage -->
-    <a href="{{ url('/') }}"><button type="button">Back</button></a>
+            <form action="{{ route('admin.login.submit') }}" method="POST" class="auth-form" novalidate>
+                @csrf
+
+                <label for="email" class="label">Email</label>
+                <input class="form-input" type="email" id="email" name="email" required autofocus value="{{ old('email') }}">
+
+                <label for="password" class="label">Password</label>
+                <input class="form-input" type="password" id="password" name="password" required>
+
+                <div class="auth-actions">
+                    <button type="submit" class="btn btn-primary">Log In</button>
+
+                    <div class="auth-links">
+                        <a href="{{ url('/') }}" class="btn btn-ghost small">Back</a>
+                        {{-- optional: link to user login if desired --}}
+                        {{-- <a href="{{ route('login') }}" class="btn btn-ghost small">User Login</a> --}}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+
 @endsection
