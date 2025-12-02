@@ -1,7 +1,7 @@
 <!-- filepath: c:\Users\Cian Lee\Documents\Retail-Store-Web-Dev-Finals\retailstore\resources\views\customers\edit.blade.php -->
 @extends('layouts.app')
 
-@section('title', 'Edit Customer')
+@section('title', 'Budega Philippines | Edit User Details')
 
 @section('content')
 

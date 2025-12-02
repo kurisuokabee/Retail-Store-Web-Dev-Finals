@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Product Details')
+@section('title', 'Budega Philippines | Product Details')
 
 @section('content')
 

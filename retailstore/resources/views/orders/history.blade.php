@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Order History')
+@section('title', 'Budega Philippines | Order History')
 
 @section('content')
 

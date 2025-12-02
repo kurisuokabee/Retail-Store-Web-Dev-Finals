@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Checkout')
+@section('title', 'Budega Philippines | Checkout')
 
 @section('content')
 
