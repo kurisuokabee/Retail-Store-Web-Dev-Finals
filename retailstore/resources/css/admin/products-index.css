@@ -180,6 +180,7 @@
     margin: 0 4px;
     font-size: 13px;
     font-weight: 600;
+    font-family: inherit;
     border-radius: 4px;
     text-decoration: none;
     transition: all 150ms ease;
