@@ -1,0 +1,168 @@
+/* Admin Reports Index Page Styles */
+
+/* Page container */
+.admin-reports-page {
+    padding: 24px;
+    background: var(--bg-light, #f8f9fa);
+    min-height: 100vh;
+}
+
+.admin-page-header {
+    margin-bottom: 20px;
+}
+
+.admin-page-header h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #222;
+    margin: 0 0 8px 0;
+}
+
+.reports-section {
+    margin-top: 20px;
+}
+
+.reports-section h2 {
+    font-size: 18px;
+    margin: 0 0 12px 0;
+    color: #333;
+}
+
+/* Reports menu (switch between report views) */
+.reports-menu {
+    display: flex;
+    gap: 8px;
+    margin: 12px 0 16px 0;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.reports-menu button {
+    padding: 8px 12px;
+    background: #fff;
+    border: 1px solid #e6e6e6;
+    border-radius: 8px;
+    font-weight: 700;
+    color: #333;
+    /* inherit global font to match page typography */
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.3;
+    cursor: pointer;
+    transition: background 160ms ease, transform 120ms ease;
+}
+
+.reports-menu button:hover {
+    background: #f6f6f6;
+}
+
+.reports-menu button.active {
+    background: var(--primary, #ff0056);
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255,0,86,0.12);
+}
+
+/* small helper to hide sections */
+.reports-hidden { display: none; }
+
+.reports-table-wrapper {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    overflow: hidden;
+    margin-bottom: 18px;
+}
+
+/* Admin action bar (back button) — keep consistent with products admin styles */
+.admin-action-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.admin-action-bar button,
+.admin-action-bar a {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 6px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 180ms ease;
+    border: none;
+}
+
+/* Ensure admin buttons inherit the page font for consistent typography */
+.admin-action-bar button,
+.admin-action-bar a {
+    font-family: inherit;
+}
+
+/* Button variants used in admin pages */
+.btn-secondary {
+    background: #f0f0f0;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+.btn-secondary:hover {
+    background: #e6e6e6;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.reports-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.reports-table thead {
+    background: #fafafa;
+}
+
+.reports-table th,
+.reports-table td {
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 1px solid #f1f1f1;
+    color: #444;
+}
+
+.reports-table th {
+    font-weight: 700;
+    color: #333;
+    white-space: nowrap;
+}
+
+.reports-table tbody tr:hover {
+    background: #fbfbfb;
+}
+
+.table-empty {
+    text-align: center;
+    padding: 28px 16px;
+    color: #888;
+}
+
+/* Small screens: allow horizontal scroll */
+@media (max-width: 768px) {
+    .reports-table-wrapper { overflow-x: auto; }
+    .reports-table { min-width: 600px; }
+}
+
+@media (max-width: 480px) {
+    .admin-reports-page { padding: 12px; }
+    .admin-page-header h1 { font-size: 20px; }
+    .reports-section h2 { font-size: 16px; }
+}
+
+@media print {
+    .admin-page-header { display: none; }
+    .reports-table-wrapper { box-shadow: none; border: 1px solid #ddd; }
+}
