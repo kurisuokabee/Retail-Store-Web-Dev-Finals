@@ -1,0 +1,321 @@
+:root {
+    --primary: #e86b7f; /* softened primary */
+    --muted: #777;
+    --card-bg: #fff;
+    --bg: #fafbfd; /* slightly lighter page bg */
+    --radius: 8px;
+
+    /* subtle status colors (used as text and faint background) */
+    --status-pending: 255, 159, 26;
+    --status-processing: 59, 130, 246;
+    --status-shipped: 37, 99, 235;
+    --status-delivered: 22, 163, 74;
+    --status-cancelled: 239, 68, 68;
+    --status-refunded: 124, 58, 237;
+    --status-muted: 107, 114, 128;
+}
+
+/* Page container */
+.container {
+    max-width: 1100px;
+    margin: 20px auto;
+    padding: 0 16px;
+    background: transparent;
+}
+
+/* Basic panel */
+.panel {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 12px;
+    box-shadow: 0 0.5px 6px rgba(15, 23, 42, 0.04); /* lighter shadow */
+}
+
+/* Orders list */
+.orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* Order card */
+.order-card {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #f3f4f6; /* lighter border */
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+}
+.order-card + .order-card {
+    margin-top: 6px;
+}
+
+/* Head */
+.order-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    border-bottom: 1px solid #f4f4f4;
+}
+.order-id {
+    font-weight: 800;
+    color: #222;
+}
+.small-muted {
+    color: var(--muted);
+    font-size: 13px;
+}
+.order-total {
+    text-align: right;
+}
+.total-label {
+    font-size: 12px;
+    color: var(--muted);
+}
+.total-amount {
+    font-weight: 900;
+    font-size: 18px;
+    color: #222;
+}
+
+/* Body with items */
+.order-body {
+    padding: 12px 14px;
+}
+.order-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.order-item-row {
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    gap: 12px;
+    align-items: center;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #fafafa;
+    background: #fff;
+}
+.item-thumb img {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+    border-radius: 6px;
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    padding: 4px;
+}
+.item-name {
+    font-weight: 700;
+    color: #222;
+}
+.item-info .item-meta {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* Actions row */
+.order-actions-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    border: 1px solid transparent;
+}
+/* .btn-view.continue-shopping {
+    background: transparent;
+    border: 1px solid #e6e6e6;
+    color: #333;
+    transform: scale(1.15);
+    padding: 6px 10px;
+} */
+.btn-view {
+    background: #ff0056;
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(255, 0, 86, 0.08);
+    transition: 200ms ease;
+}
+.btn-view:hover,
+.btn-view:focus {
+    background: #e6004d;
+    transform: translateY(-2px);
+    opacity: 0.95;
+}
+
+/* Footer */
+.order-card-foot {
+    padding: 10px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #f4f4f4;
+    background: #fafafa;
+}
+.shipping-address {
+    max-width: 70%;
+    font-size: 14px;
+}
+
+/* Empty state */
+.empty-state {
+    text-align: center;
+    padding: 28px;
+    border-radius: 8px;
+}
+
+/* Pagination wrapper */
+.pagination-wrapper {
+    text-align: center;
+}
+.pagination-wrapper .page-link,
+.pagination-wrapper .pagination li a,
+.pagination-wrapper .pagination li span {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #eee;
+    background: #fff;
+    color: #333;
+}
+
+/* Continue shopping helper (themed button alignment) */
+.continue-shopping {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
+    font-weight: 700;
+    border-radius: 8px;
+    text-decoration: none;
+    /* small visual nudge to match panels */
+    margin-bottom: 8px;
+}
+
+/* Status / Payment badges — subtle, low-contrast style */
+.status,
+.payment {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 999px;
+    font-weight: 600; /* slightly less heavy */
+    font-size: 12px;
+    color: var(--muted);
+    background: rgba(16, 24, 40, 0.03); /* faint neutral backdrop */
+    border: 1px solid rgba(16, 24, 40, 0.04);
+    text-transform: capitalize;
+    margin-left: 6px;
+}
+
+/* Order status variants — colored text with very soft backgrounds */
+.order-pending {
+    color: rgb(var(--status-pending));
+    background: rgba(var(--status-pending), 0.08);
+    border-color: rgba(var(--status-pending), 0.12);
+}
+.order-processing {
+    color: rgb(var(--status-processing));
+    background: rgba(var(--status-processing), 0.06);
+    border-color: rgba(var(--status-processing), 0.1);
+}
+.order-shipped {
+    color: rgb(var(--status-shipped));
+    background: rgba(var(--status-shipped), 0.06);
+    border-color: rgba(var(--status-shipped), 0.1);
+}
+.order-in-transit {
+    color: rgb(var(--status-processing));
+    background: rgba(var(--status-processing), 0.06);
+    border-color: rgba(var(--status-processing), 0.1);
+}
+.order-delivered {
+    color: rgb(var(--status-delivered));
+    background: rgba(var(--status-delivered), 0.06);
+    border-color: rgba(var(--status-delivered), 0.1);
+}
+.order-cancelled {
+    color: rgb(var(--status-cancelled));
+    background: rgba(var(--status-cancelled), 0.06);
+    border-color: rgba(var(--status-cancelled), 0.1);
+}
+.order-returned {
+    color: rgb(var(--status-refunded));
+    background: rgba(var(--status-refunded), 0.06);
+    border-color: rgba(var(--status-refunded), 0.1);
+}
+.order-on-hold {
+    color: rgb(var(--status-muted));
+    background: rgba(var(--status-muted), 0.06);
+    border-color: rgba(var(--status-muted), 0.1);
+}
+
+/* Payment status variants — follow same subtle pattern */
+.payment-paid,
+.payment-completed {
+    color: rgb(var(--status-delivered));
+    background: rgba(var(--status-delivered), 0.06);
+    border-color: rgba(var(--status-delivered), 0.1);
+}
+.payment-pending {
+    color: rgb(var(--status-pending));
+    background: rgba(var(--status-pending), 0.06);
+    border-color: rgba(var(--status-pending), 0.1);
+}
+.payment-failed {
+    color: rgb(var(--status-cancelled));
+    background: rgba(var(--status-cancelled), 0.06);
+    border-color: rgba(var(--status-cancelled), 0.1);
+}
+.payment-refunded {
+    color: rgb(var(--status-refunded));
+    background: rgba(var(--status-refunded), 0.06);
+    border-color: rgba(var(--status-refunded), 0.1);
+}
+
+/* Fallback */
+.order-unknown,
+.payment-unknown {
+    color: rgb(var(--status-muted));
+    background: rgba(var(--status-muted), 0.04);
+    border-color: rgba(var(--status-muted), 0.08);
+}
+
+/* Hide any Continue Shopping leftovers (buttons removed from markup) */
+.continue-shopping,
+.panel-top-outside {
+    display: none !important;
+}
+
+/* Responsive */
+@media (max-width: 880px) {
+    .order-item-row {
+        grid-template-columns: 56px 1fr;
+    }
+    .item-subtotal {
+        justify-self: end;
+    }
+    .order-card-head {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+    }
+    .order-total {
+        align-self: flex-end;
+    }
+    .shipping-address {
+        max-width: 100%;
+        text-align: left;
+    }
+}

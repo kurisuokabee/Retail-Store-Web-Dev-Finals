@@ -1,0 +1,215 @@
+/* Order details styling (uniform with browse/details) */
+:root {
+    --primary: #ff0056;
+    --muted: #777;
+    --card-bg: #fff;
+    --bg: #f6f7fb;
+    --radius: 8px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 24px auto;
+    padding: 0 16px;
+    background: transparent;
+}
+
+/* Reuse panel style; ensure fallback if not present */
+.panel {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+    padding: 18px;
+}
+
+/* Two-column layout: items & order summary */
+.order-details-page {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 20px;
+    align-items: start;
+}
+
+/* Items list: card-like rows */
+.order-items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.order-item {
+    display: grid;
+    grid-template-columns: 56px 1fr auto;
+    gap: 12px;
+    align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #f1f1f1;
+    background: #fff;
+}
+.order-item .thumb {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+    border-radius: 6px;
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    padding: 4px;
+}
+.order-item .item-name {
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 4px;
+    margin-left: 8px;
+}
+.order-item .item-meta {
+    font-size: 13px;
+    color: var(--muted);
+    margin-left: 8px;
+}
+
+/* Order summary metadata */
+.order-meta .meta-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px dashed #eee;
+}
+.order-meta .meta-row:last-child {
+    border-bottom: none;
+}
+.order-meta .meta-title {
+    font-weight: 700;
+    color: #444;
+}
+.order-meta .meta-value {
+    color: #333;
+}
+
+/* Totals area */
+.order-totals {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #eee;
+}
+.order-totals .totals-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+}
+.order-totals .totals-row.total {
+    font-weight: 900;
+    font-size: 18px;
+}
+
+/* Action buttons footer */
+.order-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+    justify-content: flex-start;
+}
+.order-actions .btn {
+    min-width: 140px;
+}
+
+/* Button theme: consistent with browse/details */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    transition: transform 160ms ease, opacity 160ms ease, box-shadow 160ms ease;
+    /* Add vendor prefixes for Safari / Firefox / IE */
+    -webkit-user-select: none; /* Safari 3+, iOS */
+    -moz-user-select: none; /* older Firefox */
+    -ms-user-select: none; /* IE10+ */
+    user-select: none; /* standard */
+}
+
+/* Primary */
+.btn-primary {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+    box-shadow: 0 6px 20px rgba(255, 0, 86, 0.08);
+}
+.btn-primary:hover {
+    transform: translateY(-2px);
+    opacity: 0.95;
+}
+
+/* Ghost / secondary */
+.btn-ghost,
+.btn-view {
+    background: #ff0056;
+    color: #fff;
+}
+
+.btn-ghost:hover,
+.btn-ghost:focus,
+.btn-view:hover,
+.btn-view:focus {
+    background: #e6004d;
+    transform: translateY(-2px);
+    opacity: 0.95;
+}
+
+/* Mini / compact */
+.btn.mini,
+.btn-mini {
+    padding: 6px 8px;
+    font-size: 13px;
+    border-radius: 6px;
+}
+
+/* Remove / destructive */
+.btn-remove {
+    background: transparent;
+    color: #b40000;
+    border: 1px solid transparent;
+    padding: 6px 8px;
+    font-size: 13px;
+    border-radius: 6px;
+}
+
+/* Focus / accessibility */
+.btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 0, 86, 0.12);
+}
+
+/* Order meta actions (download invoice / CTA) */
+.meta-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+/* Responsive: center actions on small screens */
+@media (max-width: 980px) {
+    .meta-actions {
+        justify-content: center;
+    }
+}
+
+/* Responsive stack */
+@media (max-width: 980px) {
+    .order-details-page {
+        grid-template-columns: 1fr;
+    }
+    .order-meta {
+        order: 2;
+    }
+    .order-items {
+        order: 1;
+    }
+    .order-actions {
+        justify-content: center;
+    }
+}

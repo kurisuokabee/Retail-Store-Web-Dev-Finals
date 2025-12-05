@@ -1,0 +1,252 @@
+:root {
+    --primary: #ff0056;
+    --muted: #6b7280;
+    --card-bg: #fff;
+    --bg: #fafbfd;
+    --radius: 10px;
+}
+
+/* container/panel are provided globally; this file focuses on the customer card specifics */
+.customer-card {
+    max-width: 960px;
+    margin: 20px auto;
+    padding: 18px;
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: 0 1px 8px rgba(15, 23, 42, 0.04);
+}
+
+/* two-column layout */
+.customer-grid {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 20px;
+    align-items: start;
+}
+
+/* profile column */
+.profile {
+    text-align: center;
+    padding: 6px;
+}
+.avatar-wrap {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 6px auto 12px;
+    border-radius: 999px;
+    overflow: hidden;
+    background: linear-gradient(180deg, #fff 0%, #fafafa 100%);
+    border: 1px solid #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.avatar-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.avatar-fallback {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 34px;
+    color: #fff;
+    background: linear-gradient(135deg, var(--primary), #e86b7f);
+}
+.username {
+    margin: 8px 0 2px;
+    font-size: 20px;
+    font-weight: 800;
+    color: #111827;
+}
+
+/* info column */
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px 24px;
+}
+.info-grid > div {
+    padding: 10px;
+    border-radius: 8px;
+    background: #ffffff;
+    border: 1px solid #f4f4f5;
+}
+.info-grid strong {
+    display: block;
+    margin-bottom: 6px;
+    color: #111827;
+}
+.small-muted {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* actions row */
+.customer-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 6px;
+}
+
+/* Scoped baseline so buttons match in size, spacing and interactions */
+.customer-actions .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 14px;
+    min-height: 40px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: transform 120ms ease, box-shadow 120ms ease,
+        background 120ms ease, color 120ms ease;
+    background: transparent;
+}
+
+/* neutral / ghost (Edit) */
+.btn-ghost {
+    color: #111827;
+    border-color: #e6e6e6;
+    background: transparent;
+}
+.btn-ghost:hover,
+.btn-ghost:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(17, 24, 39, 0.04);
+    background: rgba(16, 24, 40, 0.02);
+    text-decoration: none;
+}
+
+button.btn.btn-ghost {
+    color: #1a7a1a;
+}
+
+button.btn.btn-ghost:hover,
+button.btn.btn-ghost:focus {
+    background: rgba(35, 161, 35, 0.04);
+}
+
+/* danger (Delete) */
+.btn-remove {
+    color: #b40000;
+    border-color: rgba(180, 0, 0, 0.12);
+    background: transparent;
+}
+.btn-remove:hover,
+.btn-remove:focus {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(180, 0, 0, 0.06);
+    background: rgba(180, 0, 0, 0.04);
+}
+
+/* Continue shopping style (matches other pages) */
+.continue-shopping {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #111827;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+/* small alert */
+.alert-success {
+    background: #e6f7e6;
+    color: #1a7a1a;
+    padding: 8px 12px;
+    border-radius: 6px;
+}
+
+/* panel-top helper: left-aligned actions inside a panel */
+.panel .panel-top {
+    display: flex;
+    justify-content: flex-start; /* align to left edge of panel */
+    align-items: center;
+    margin-bottom: 12px; /* space between button and card content */
+}
+
+/* Continue shopping when placed outside the panel (left-aligned above the card) */
+.panel-top-outside {
+    max-width: 960px; /* match .customer-card width */
+    margin: 12px auto 0; /* align with the card's horizontal position */
+    padding-left: 18px; /* align visually with card content padding */
+}
+.panel-top-outside .continue-shopping {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    background: transparent;
+    color: #111827;
+    border: 1px solid #e6e6e6;
+    transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+/* Hover / focus states for the outside button */
+.panel-top-outside .continue-shopping:hover,
+.panel-top-outside .continue-shopping:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(17, 24, 39, 0.04);
+    text-decoration: none;
+}
+
+/* Ensure responsiveness: keep the outside button aligned on small screens */
+@media (max-width: 880px) {
+    .panel-top-outside {
+        margin: 10px 12px;
+        padding-left: 0;
+    }
+    .panel-top-outside .continue-shopping {
+        padding: 7px 10px;
+        font-size: 13px;
+        width: auto;
+    }
+}
+
+/* responsive adjustments */
+@media (max-width: 880px) {
+    .customer-grid {
+        grid-template-columns: 1fr;
+    }
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+    .profile {
+        display: flex;
+        flex-direction: row;
+        gap: 12px;
+        align-items: center;
+        text-align: left;
+    }
+    .avatar-wrap {
+        width: 86px;
+        height: 86px;
+        margin: 0;
+    }
+}
+
+/* Hide any Continue Shopping leftovers (buttons removed from markup) */
+.continue-shopping,
+.panel-top-outside {
+    display: none !important;
+}

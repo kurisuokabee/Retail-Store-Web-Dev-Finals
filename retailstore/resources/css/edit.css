@@ -1,0 +1,53 @@
+/* Keep form blocks consistent with .info-grid from show-customer.css */
+.form-grid .info-grid > div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* inputs / textarea */
+.form-input,
+.form-textarea {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #e6e6e6;
+    background: #ffffff;
+    font-size: 14px;
+    color: #111827;
+    outline: none;
+    transition: box-shadow 120ms ease, transform 120ms ease,
+        border-color 120ms ease;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    box-shadow: 0 6px 18px rgba(17, 24, 39, 0.06);
+    border-color: rgba(99, 102, 241, 0.12);
+    transform: translateY(-1px);
+}
+
+/* textarea sizing */
+.form-textarea {
+    min-height: 92px;
+    resize: vertical;
+}
+
+/* .btn-save {
+    background: transparent;
+    transition: transform 120ms ease, box-shadow 160ms ease,
+        border-color 120ms ease;
+}
+
+.btn-save:hover,
+.btn-save:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 34px rgba(17, 24, 39, 0.06);
+    outline: none;
+} */
+
+/* small responsive tweak to keep layout readable on small screens */
+@media (max-width: 880px) {
+    .form-grid .info-grid {
+        grid-template-columns: 1fr;
+    }
+}

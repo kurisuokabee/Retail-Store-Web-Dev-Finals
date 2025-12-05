@@ -1,49 +1,72 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Update Order</title>
-</head>
-<body>
-<h1>Update Order #{{ $order->order_id }}</h1>
+@extends('layouts.app')
 
-<a href="{{ route('admin.orders.index') }}">Back to Orders</a>
+@section('title', 'Update Order')
 
-@if ($errors->any())
-    <div style="color:red;">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
+@section('content')
+    <!-- Force-load orders-edit.css -->
+    @php
+        $publicCssPath = public_path('css/admin/orders-edit.css');
+        $resourceCssPath = resource_path('css/admin/orders-edit.css');
+    @endphp
+
+    @if (file_exists($publicCssPath))
+        <link rel="stylesheet" href="{{ asset('css/admin/orders-edit.css') }}">
+    @elseif (function_exists('vite'))
+        @vite(['resources/css/admin/orders-edit.css'])
+    @elseif (Illuminate\Support\Facades\File::exists($resourceCssPath))
+        <style>
+            {!! Illuminate\Support\Facades\File::get($resourceCssPath) !!}
+        </style>
+    @endif
+
+<div class="admin-orders-edit-page">
+    <!-- Page header and back link -->
+    <div class="admin-page-header">
+        <h1>Update Order #{{ $order->order_id }}</h1>
     </div>
-@endif
 
-<form action="{{ route('admin.orders.update', $order->order_id) }}" method="POST">
-    @csrf
-    @method('PUT')
+    <a href="{{ route('admin.orders.index') }}" class="btn btn-secondary back-link">← Back to Orders</a>
 
-    <p>
-        <label>Order Status:</label><br>
-        <select name="order_status" required>
-            <option value="pending" @if($order->order_status == 'pending') selected @endif>Pending</option>
-            <option value="processing" @if($order->order_status == 'processing') selected @endif>Processing</option>
-            <option value="completed" @if($order->order_status == 'completed') selected @endif>Completed</option>
-            <option value="cancelled" @if($order->order_status == 'cancelled') selected @endif>Cancelled</option>
-        </select>
-    </p>
+    <!-- Display validation errors from the backend if any exist -->
+    @if ($errors->any())
+        <div class="alert-error">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
-    <p>
-        <label>Payment Status:</label><br>
-        <select name="payment_status" required>
-            <option value="pending" @if($order->payment_status == 'pending') selected @endif>Pending</option>
-            <option value="paid" @if($order->payment_status == 'paid') selected @endif>Paid</option>
-            <option value="failed" @if($order->payment_status == 'failed') selected @endif>Failed</option>
-        </select>
-    </p>
+    <!-- Form to update an existing order -->
+    <form action="{{ route('admin.orders.update', $order->order_id) }}" method="POST" class="form-container">
+        <!-- CSRF token for security to prevent cross-site request forgery -->
+        @csrf
+        <!-- Use PUT HTTP method for updating the resource -->
+        @method('PUT')
 
-    <p>
-        <button type="submit">Update Order</button>
-    </p>
-</form>
-</body>
-</html>
+        <div class="form-group">
+            <label for="order_status">Order Status</label>
+            <select id="order_status" name="order_status" required>
+                <option value="pending" @if($order->order_status == 'pending') selected @endif>Pending</option>
+                <option value="processing" @if($order->order_status == 'processing') selected @endif>Processing</option>
+                <option value="completed" @if($order->order_status == 'completed') selected @endif>Completed</option>
+                <option value="cancelled" @if($order->order_status == 'cancelled') selected @endif>Cancelled</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="payment_status">Payment Status</label>
+            <select id="payment_status" name="payment_status" required>
+                <option value="pending" @if($order->payment_status == 'pending') selected @endif>Pending</option>
+                <option value="paid" @if($order->payment_status == 'paid') selected @endif>Paid</option>
+                <option value="failed" @if($order->payment_status == 'failed') selected @endif>Failed</option>
+            </select>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-submit">Update Order</button>
+            <a href="{{ route('admin.orders.index') }}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+@endsection

@@ -20,7 +20,7 @@ class CustomerFactory extends Factory
         return [
             'username' => $this->faker->unique()->userName(),
             'email' => $this->faker->unique()->safeEmail(),
-            'password' => bcrypt('123'),
+            'password' => bcrypt('123456'),
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
             'date_of_birth' => $this->faker->date('Y-m-d', '2005-12-31'),

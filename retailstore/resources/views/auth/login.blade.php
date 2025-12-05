@@ -1,31 +1,66 @@
-<div>
-    <!-- Waste no more time arguing what a good man should be, be one. - Marcus Aurelius -->
-    <h1>Retail Store Login</h1>
-    @if ($errors->any())
-        <div style="color: red; margin-bottom: 20px;">
-            @foreach ($errors->all() as $error)
-                <p>{{ $error }}</p>
-            @endforeach
-        </div>
+@extends('layouts.app')
+
+@section('title', 'Budega Philippines | Login')
+
+@section('content')
+
+    <!-- Force-load login.css like other pages -->
+    @php
+        $publicCssPath = public_path('css/login.css');
+        $resourceCssPath = resource_path('css/login.css');
+    @endphp
+
+    @if (file_exists($publicCssPath))
+        <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+    @elseif (function_exists('vite'))
+        @vite(['resources/css/login.css'])
+    @elseif (Illuminate\Support\Facades\File::exists($resourceCssPath))
+        <style>
+            {!! Illuminate\Support\Facades\File::get($resourceCssPath) !!}
+        </style>
     @endif
-    <form method="POST" action="{{ route('auth.login') }}">
-        @csrf
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required autofocus>
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <br>
-        <button type="submit">Log In</button>
-    </form> 
 
-     <br>
+    <!-- Header / Navigation -->
+    <header>
+        @include('components.navbar')
+    </header>
 
-     <form action="{{ route('auth.register') }}" method="GET">
-        <button type="submit">Register Account</button>
-    </form>
+    <main class="auth-page">
+        <div class="auth-card">
+            <div class="auth-brand">
+                <h1>Welcome!</h1>
+                <p class="auth-sub">Sign in to your account</p>
+            </div>
 
-    <form action="{{ route('admin.login') }}" method="GET">
-        <button type="submit">Admin Login</button>
-    </form>
-</div>
+            <!-- Validation errors -->
+            @if ($errors->any())
+                <div class="alert alert-error auth-errors" role="alert">
+                    @foreach ($errors->all() as $error)
+                        <div>{{ $error }}</div>
+                    @endforeach
+                </div>
+            @endif
+
+            <form method="POST" action="{{ route('auth.login') }}" class="auth-form" novalidate>
+                @csrf
+
+                <label for="email" class="label">Email</label>
+                <input class="form-input" type="email" id="email" name="email" required autofocus value="{{ old('email') }}">
+
+                <label for="password" class="label">Password</label>
+                <input class="form-input" type="password" id="password" name="password" required>
+
+                <div class="auth-actions">
+                    <button type="submit" class="btn btn-primary">Log In</button>
+
+                    <!-- keep Register/Admin navigation behavior but use links for semantics -->
+                    <div class="auth-links">
+                        {{-- <a href="{{ route('auth.register') }}" class="btn btn-ghost small">Register</a> --}}
+                        <a href="{{ route('admin.login') }}" class="btn btn-ghost small">Admin Login</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+@endsection

@@ -1,50 +1,115 @@
-<div>
+@extends('layouts.app')
+
+@section('title', 'Budega Philippines | Order Details')
+
+@section('content')
+
+    <!-- Force-load show.css here -->
+    @php
+        $publicCssPath = public_path('css/show.css');
+        $resourceCssPath = resource_path('css/show.css');
+    @endphp
+
+    @if (file_exists($publicCssPath))
+        <link rel="stylesheet" href="{{ asset('css/show.css') }}">
+    @elseif (function_exists('vite'))
+        @vite(['resources/css/show.css'])
+    @elseif (Illuminate\Support\Facades\File::exists($resourceCssPath))
+        <style>
+            {!! Illuminate\Support\Facades\File::get($resourceCssPath) !!}
+        </style>
+    @endif
+
+<header>
+    @include('components.navbar')
+</header>
+
+<main class="container">
     <h1>Order Details</h1>
 
     @if (session('success'))
-        <p style="color: green;">{{ session('success') }}</p>
+        <p style="color: green; margin-bottom: 15px;">{{ session('success') }}</p>
     @endif
 
-    <div style="border: 1px solid #ccc; padding: 15px; margin-bottom: 15px;">
-        <h3>Order #{{ $order->order_id }}</h3>
-        <p>Order Date: {{ \Carbon\Carbon::parse($order->order_date)->format('M d, Y H:i') }}</p>
-        <p>Status: {{ ucfirst($order->order_status) }}</p>
-        <p>Payment Status: {{ ucfirst($order->payment_status) }}</p>
-        <p>Total Amount: ${{ number_format($order->total_amount, 2) }}</p>
-        <p>Payment Method: {{ ucfirst(str_replace('_', ' ', $order->payment_method)) }}</p>
-        <p>Shipping Address: {{ $order->shipping_address }}</p>
+    <div class="order-details-page">
+        <!-- Left: Order items -->
+        <section class="panel order-items-panel">
+            <h2>Items in Order #{{ $order->order_id }}</h2>
+
+            <div class="order-items">
+                @foreach ($order->orderDetails as $detail)
+                    @php
+                        $product = $detail->product ?? null;
+                        $thumb = $product->image_url ?? '/images/generic-product.png';
+                        if (!preg_match('/^https?:\\/\\//i', $thumb)) {
+                            $thumb = asset(ltrim($thumb, '/'));
+                        }
+                    @endphp
+                    <div class="order-item">
+                        <img class="thumb" src="{{ $thumb }}" alt="{{ $product->product_name ?? 'Product' }}" loading="lazy">
+                        <div>
+                            <div class="item-name">{{ $product->product_name ?? 'Product' }}</div>
+                            <div class="item-meta">{{ $detail->quantity }} × ${{ number_format($detail->unit_price, 2) }}</div>
+                            @if(!empty($product->description))
+                                <div class="item-meta" style="margin-top:6px; color: var(--muted); font-size:13px;">
+                                    {{ strlen($product->description) > 120 ? substr($product->description, 0, 120) . '...' : $product->description }}
+                                </div>
+                            @endif
+                        </div>
+                        <div style="text-align:right;">
+                            <div class="item-price">${{ number_format($detail->unit_price * $detail->quantity, 2) }}</div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+            <!-- Order actions -->
+            <div class="order-actions">
+                <a href="{{ route('orders.history') }}" class="btn btn-ghost">Back to Orders</a>
+            </div>
+        </section>
+
+        <!-- Right: Order metadata & totals -->
+        <aside class="panel order-meta">
+            <h2>Order Summary</h2>
+
+            <div class="meta-row">
+                <div class="meta-title">Order Date</div>
+                <div class="meta-value">{{ \Carbon\Carbon::parse($order->order_date)->format('M d, Y H:i') }}</div>
+            </div>
+            <div class="meta-row">
+                <div class="meta-title">Order Status</div>
+                <div class="meta-value">{{ ucfirst($order->order_status) }}</div>
+            </div>
+            <div class="meta-row">
+                <div class="meta-title">Payment Status</div>
+                <div class="meta-value">{{ ucfirst($order->payment_status) }}</div>
+            </div>
+            <div class="meta-row">
+                <div class="meta-title">Payment Method</div>
+                <div class="meta-value">{{ ucfirst(str_replace('_', ' ', $order->payment_method)) }}</div>
+            </div>
+            <div class="meta-row">
+                <div class="meta-title">Shipping Address</div>
+                <div class="meta-value" style="max-width: 240px; text-align:right;">{{ $order->shipping_address }}</div>
+            </div>
+
+            <div class="order-totals">
+                <div class="totals-row">
+                    <span>Items</span>
+                    <span>${{ number_format($order->subtotal_amount ?? ($order->total_amount - ($order->shipping_fee ?? 0)), 2) }}</span>
+                </div>
+                <div class="totals-row">
+                    <span>Shipping</span>
+                    <span>${{ number_format($order->shipping_fee ?? 0.00, 2) }}</span>
+                </div>
+                <div class="totals-row total">
+                    <span>Total</span>
+                    <span>${{ number_format($order->total_amount, 2) }}</span>
+                </div>
+            </div>
+        </aside>
     </div>
+</main>
 
-    <h2>Order Items</h2>
-    <table border="1" cellpadding="10" style="width: 100%;">
-        <thead>
-            <tr>
-                <th>Product</th>
-                <th>Description</th>
-                <th>Qty</th>
-                <th>Unit Price</th>
-                <th>Subtotal</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($order->orderDetails as $detail)
-                <tr>
-                    <td>{{ $detail->product->product_name }}</td>
-                    <td>{{ $detail->product->description }}</td>
-                    <td>{{ $detail->quantity }}</td>
-                    <td>${{ number_format($detail->unit_price, 2) }}</td>
-                    <td>${{ number_format($detail->unit_price * $detail->quantity, 2) }}</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-
-    <p style="text-align: right; font-weight: bold; margin-top: 20px;">
-        Order Total: ${{ number_format($order->total_amount, 2) }}
-    </p>
-
-    <p>
-        <a href="{{ route('orders.history') }}">Back to Order History</a> |
-        <a href="{{ route('products.browse') }}">Continue Shopping</a>
-    </p>
-</div>
+@endsection

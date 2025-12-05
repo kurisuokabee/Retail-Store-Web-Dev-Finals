@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+:root {
+    /* Default page background color (can be overridden by classes) */
+    --page-bg: #f3f3f3; /* default white */
+}
+
+/* Apply the variable to the page body */
+body {
+    font-family: "Poppins", sans-serif;
+    background-color: var(--page-bg);
+    min-height: 100vh;
+}
+
+/* Utility classes that change the page background by adjusting the CSS variable */
+.bg-white {
+    --page-bg: #ffffff;
+}
+.bg-light {
+    --page-bg: #f8f9fa;
+}
+.bg-soft-blue {
+    --page-bg: #f0f8ff;
+}
+.bg-cream {
+    --page-bg: #fffdf5;
+}
+.bg-gray {
+    --page-bg: #f1f3f5;
+}
+
+/* You can add more semantic utility classes as needed */

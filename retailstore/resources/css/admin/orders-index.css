@@ -1,0 +1,213 @@
+/* Admin Orders Index Page Styles (based on products-index.css) */
+
+/* Page container */
+.admin-orders-page {
+    padding: 24px;
+    background: var(--bg-light, #f8f9fa);
+    min-height: 100vh;
+}
+
+.admin-page-header { margin-bottom: 28px; }
+
+.admin-page-header h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #222;
+    margin: 0 0 12px 0;
+}
+
+/* Action bar with buttons and navigation */
+.admin-action-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.admin-action-bar button,
+.admin-action-bar a {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 6px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 180ms ease;
+    border: none;
+}
+
+.btn-secondary { 
+    background: #f0f0f0; color: #333; 
+    border: 1px solid #ddd; 
+}
+
+.btn-secondary:hover { 
+    background: #e6e6e6; transform: translateY(-1px); 
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08); 
+}
+
+.btn-primary { 
+    background: var(--primary, #ff0056); 
+    color: #fff; 
+}
+
+.btn-primary:hover { 
+    background: #e6004d; 
+    transform: translateY(-1px); 
+    box-shadow: 0 2px 8px rgba(255,0,86,0.2); 
+}
+
+/* General button utilities used on the orders page */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+}
+
+.btn-secondary {
+    background: #f0f0f0;
+    color: #333;
+    border: 1px solid #e0e0e0;
+}
+
+/* Action buttons cell */
+.actions-cell {
+    white-space: nowrap;
+}
+
+.actions-cell .btn-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 10px;
+    margin: 0 4px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 150ms ease;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+}
+
+.btn-link.edit {
+    color: #0066cc;
+}
+
+.btn-link.edit:hover {
+    background: #e3f2fd;
+    text-decoration: underline;
+}
+
+.btn-link.delete {
+    color: #d32f2f;
+}
+
+.btn-link.delete:hover {
+    background: #ffebee;
+    text-decoration: underline;
+}
+
+/* Separator between action buttons */
+.action-separator {
+    display: inline;
+    color: #ddd;
+    margin: 0 2px;
+}
+
+/* Table styles */
+.orders-table-wrapper {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    margin-top: 16px;
+}
+
+.orders-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.orders-table thead { background: #f5f5f5; border-bottom: 2px solid #e0e0e0; }
+
+.orders-table th { padding: 14px 16px; text-align: left; font-weight: 700; color: #333; white-space: nowrap; }
+.orders-table td { padding: 14px 16px; color: #444; }
+.orders-table tbody tr { border-bottom: 1px solid #f0f0f0; transition: background 150ms ease; }
+.orders-table tbody tr:hover { background: #fafafa; }
+
+/* Action buttons cell */
+.actions-cell {
+    white-space: nowrap;
+}
+
+.actions-cell .btn-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 10px;
+    margin: 0 4px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: inherit;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 150ms ease;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+}
+
+.btn-link.edit {
+    color: #0066cc;
+}
+
+.btn-link.edit:hover {
+    background: #e3f2fd;
+    text-decoration: underline;
+}
+
+.btn-link.delete {
+    color: #d32f2f;
+}
+
+.btn-link.delete:hover {
+    background: #ffebee;
+    text-decoration: underline;
+}
+
+/* Separator between action buttons */
+.action-separator {
+    display: inline;
+    color: #ddd;
+    margin: 0 2px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .admin-orders-page { padding: 16px; }
+    .orders-table { font-size: 13px; }
+    .orders-table th, .orders-table td { padding: 10px 12px; }
+    .admin-action-bar { flex-direction: column; align-items: stretch; }
+}
+
+@media (max-width: 768px) {
+    .orders-table-wrapper { overflow-x: auto; }
+    .orders-table { min-width: 720px; font-size: 12px; }
+}
+
+@media (max-width: 480px) {
+    .admin-orders-page { padding: 12px; }
+    .admin-page-header h1 { font-size: 18px; margin-bottom: 16px; }
+    .admin-action-bar { gap: 8px; }
+}
+
+@media print {
+    .admin-action-bar { display: none; }
+    .orders-table-wrapper { box-shadow: none; border: 1px solid #ddd; }
+}

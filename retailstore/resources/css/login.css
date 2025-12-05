@@ -1,0 +1,153 @@
+/* Minimal page-specific styles to match app theme */
+:root {
+    --primary: #ff0056;
+    --muted: #6b7280;
+    --card-bg: #fff;
+    --bg: #f6f7fb;
+    --radius: 10px;
+}
+
+.auth-page {
+    min-height: calc(100vh - 72px); /* account for navbar height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+    padding: 24px;
+}
+
+/* Card */
+.auth-card {
+    width: 100%;
+    max-width: 420px;
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 22px;
+    box-shadow: 0 8px 28px rgba(15, 23, 42, 0.06);
+    border: 1px solid rgba(15, 23, 42, 0.03);
+    margin-top: -6%;
+}
+
+/* Brand */
+.auth-brand {
+    text-align: center;
+    margin-bottom: 12px;
+}
+.auth-brand h1 {
+    margin: 0;
+    font-size: 20px;
+    letter-spacing: -0.2px;
+    color: #111827;
+    font-weight: 800;
+}
+.auth-sub {
+    margin: 6px 0 0;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* Reuse existing .form-input if present; otherwise provide baseline */
+.form-input {
+    width: 94%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #e6e6e6;
+    background: #ffffff;
+    font-size: 14px;
+    color: #111827;
+    outline: none;
+    margin-bottom: 12px;
+    transition: box-shadow 120ms ease, transform 120ms ease,
+        border-color 120ms ease;
+}
+.form-input:focus {
+    box-shadow: 0 8px 20px rgba(17, 24, 39, 0.06);
+    border-color: rgba(255, 0, 86, 0.12);
+    transform: translateY(-1px);
+}
+
+/* Labels */
+.label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 700;
+    font-size: 13px;
+    color: #111827;
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+}
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255, 0, 86, 0.12);
+}
+
+.btn-ghost {
+    background: transparent;
+    border: 1px solid #e6e6e6;
+    color: #111827;
+    padding: 8px 12px;
+    font-weight: 700;
+}
+.btn-ghost.small {
+    padding: 7px 10px;
+    font-size: 13px;
+}
+
+/* Actions layout */
+.auth-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 6px;
+}
+.auth-links {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+/* Error alert override (keeps consistent alert look) */
+.alert.alert-error,
+.auth-errors {
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: #fdecea;
+    color: #b40000;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+/* Small screens */
+@media (max-width: 560px) {
+    .auth-card {
+        padding: 16px;
+    }
+    .auth-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .auth-links {
+        justify-content: space-between;
+    }
+}
