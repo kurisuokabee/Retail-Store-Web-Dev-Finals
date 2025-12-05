@@ -44,7 +44,6 @@ composer install
 3. Install NPM dependencies
 ```bash
 npm install
-npm run dev
 ```
 
 4. Copy the .env.example to .env
@@ -58,12 +57,20 @@ php artisan key:generate
 ```
 ## Usage
 
+1. Start the local development server
 ```bash
-
-#1. Start the local development server
 php artisan serve
-
 ```
+2. Compile frontend assets
+```bash
+npm run dev
+```
+
+2. Register an account or Login by using an account on the database
+
+3. Admin Credentials
+    Username: admin@example.com
+    Password: admin123
 
 ## Database Setup
 
@@ -77,8 +84,8 @@ DB_DATABASE=your_database_name
 DB_USERNAME=your_username
 DB_PASSWORD=your_password
 
+3. Run migrations and seed the database:
 ```bash
-#3. Run migrations and seed the database:
 php artisan migrate --seed
 ```
 
