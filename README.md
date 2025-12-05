@@ -8,6 +8,7 @@ A web-based retail store application built with **Laravel**, **Composer**, and *
 
 ## Table of Contents
 - [Features](#features)
+- [Dependencies](#dependencies)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Database Setup](#database-setup)
@@ -26,9 +27,13 @@ A web-based retail store application built with **Laravel**, **Composer**, and *
 - Store Analytics
 
 ---
-
+## Dependencies
+- Laravel 10
+- MySQL
+- Node.js
+- npm packages: vite, bootstrap, etc.
+---
 ## Installation / Setup
-
 
 1. Clone the repository
 ```bash
@@ -55,6 +60,7 @@ cp .env.example .env
 ```bash
 php artisan key:generate
 ```
+---
 ## Usage
 
 1. Start the local development server
@@ -71,7 +77,7 @@ npm run dev
 3. Admin Credentials<br>
     Username: admin@example.com<br>
     Password: admin123
-
+---
 ## Database Setup
 
 1. Create a MySQL database for the project.
@@ -80,7 +86,7 @@ npm run dev
 ```bash
 php artisan migrate --seed
 ```
-
+---
 # Team Members
 
 Team Members
@@ -90,6 +96,6 @@ Team Members
 3. Rico Nathaniel Tan – Frontend Developer
 4. Sev Jand Daniel Torreon – Backend Developer
 5. Tyler John Uri – Frontend Developer
-
+---
 # License
 This project is open-source and available under the MIT License.
