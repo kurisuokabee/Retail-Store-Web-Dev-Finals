@@ -68,8 +68,8 @@ npm run dev
 
 2. Register an account or Login by using an account on the database
 
-3. Admin Credentials
-    Username: admin@example.com
+3. Admin Credentials<br>
+    Username: admin@example.com<br>
     Password: admin123
 
 ## Database Setup
