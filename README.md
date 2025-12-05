@@ -29,25 +29,32 @@ A web-based retail store application built with **Laravel**, **Composer**, and *
 
 ## Installation / Setup
 
-```bash
-#1. Clone the repository
 
+1. Clone the repository
+```bash
 git clone https://github.com/kurisuokabee/Retail-Store-Web-Dev-Finals
 cd retailstore
+```
 
-#2. Install Composer dependencies
+2. Install Composer dependencies
+```bash
 composer install
+```
 
-#3. Install NPM dependencies
+3. Install NPM dependencies
+```bash
 npm install
 npm run dev
+```
 
-#4. Copy the .env.example to .env
+4. Copy the .env.example to .env
+```bash
 cp .env.example .env
+```
 
-#5. Generate the application key
+5. Generate the application key
+```bash
 php artisan key:generate
-
 ```
 ## Usage
 
